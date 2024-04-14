@@ -6,7 +6,6 @@ package diff
 
 import (
 	"io"
-	"io/ioutil"
 
 	"github.com/icedream/go-bsdiff/internal/native"
 )
@@ -19,15 +18,6 @@ saves that patch to patchWriter.
 It may be helpful to save away the new content size along with the actual
 patch as it will be needed in order to reuse the patch.
 */
-func Diff(oldReader, newReader io.Reader, patchWriter io.Writer) (err error) {
-	oldBytes, err := ioutil.ReadAll(oldReader)
-	if err != nil {
-		return
-	}
-	newBytes, err := ioutil.ReadAll(newReader)
-	if err != nil {
-		return
-	}
-
+func Diff(oldBytes, newBytes []byte, patchWriter io.Writer) (err error) {
 	return native.Diff(oldBytes, newBytes, patchWriter)
 }
